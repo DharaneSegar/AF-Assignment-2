@@ -47,7 +47,7 @@ export default function SignUp() {
       setIsModalOpen(true);
     } else {
       axios
-        .post("http://localhost:8080/v1/users/", {
+        .post("http://172.28.2.172:8080/v1/users/", {
           email,
           password,
         })
