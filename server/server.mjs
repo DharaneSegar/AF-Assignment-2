@@ -7,7 +7,7 @@ import logger from "./utils/logger.mjs";
 import UserRouter from "./routes/userRoute.mjs";
 
 const app = express();
-let PORT = process.env.PORT || "8080";
+let PORT = process.env.PORT || "808";
 
 dotenv.config();
 
