@@ -26,7 +26,7 @@ export default function SignIn() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const res = await axios.post("http://172.28.2.172:8080/v1/users/login/", {
+        const res = await axios.post("http://localhost:8080/v1/users/login/", {
           email,
           password,
         });
