@@ -6,22 +6,34 @@ import { useState, useEffect } from "react";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [backgroundImage, setBackgroundImage] = useState("");
+  const [backgroundImages, setBackgroundImages] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    // Fetch background image from NASA API
+    // Fetch background images from NASA API
     axios
-      .get(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
+      .get(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=5`)
       .then((response) => {
-        setBackgroundImage(response.data.hdurl);
+        setBackgroundImages(response.data.map((item) => item.hdurl));
       })
       .catch((error) => {
-        console.error("Error fetching background image:", error);
+        console.error("Error fetching background images:", error);
       });
   }, []);
+
+  useEffect(() => {
+    // Change background image every 5 seconds
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === backgroundImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [backgroundImages]);
 
     const handleSubmit = async (e) => {
       e.preventDefault();
