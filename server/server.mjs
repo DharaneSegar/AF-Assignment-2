@@ -14,7 +14,7 @@ dotenv.config();
 app.use(cors());
 
 const corsOptions = {
-  origin: 'https://af-assignment-2.vercel.app/', // Replace with your client's origin
+  origin: 'https://af-assignment-2.vercel.app', // Replace with your client's origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
