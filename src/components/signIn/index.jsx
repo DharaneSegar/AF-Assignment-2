@@ -26,7 +26,7 @@ export default function SignIn() {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        const res = await axios.post("/v1/users/login/", {
+        const res = await axios.post("http://af-assignment-2.onrender.com/v1/users/login/", {
           email,
           password,
         });

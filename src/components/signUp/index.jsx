@@ -47,7 +47,7 @@ export default function SignUp() {
       setIsModalOpen(true);
     } else {
       axios
-        .post("/v1/users/", {
+        .post("http://af-assignment-2.onrender.com/v1/users/", {
           email,
           password,
         })
