@@ -1,6 +1,6 @@
 import axios from "axios";
 import API_KEY from "../../config/apiConfig";
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
 
 export default function SignIn() {
@@ -35,40 +35,41 @@ export default function SignIn() {
     return () => clearInterval(interval);
   }, [backgroundImages]);
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const res = await axios.post("https://af-assignment-2.onrender.com/v1/users/login/", {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "https://af-assignment-2.onrender.com/v1/users/login/",
+        {
           email,
           password,
-        });
-    
-        if (res.data === "Invalid email") {
-          setError("Invalid email");
-          setIsModalOpen(true);
-        } else if (res.data === "Invalid Password") {
-          setError("Invalid password");
-          setIsModalOpen(true);
-        } else {
-          setSuccess("Logged in successfully");
-          localStorage.setItem("token", res.data.token);
-          setIsModalOpen(true); // Open success modal
         }
-      } catch (error) {
-        setError("Wrong details");
+      );
+
+      if (res.data === "Invalid email") {
+        setError("Invalid email");
         setIsModalOpen(true);
-        console.log(error);
+      } else if (res.data === "Invalid Password") {
+        setError("Invalid password");
+        setIsModalOpen(true);
+      } else {
+        setSuccess("Logged in successfully");
+        localStorage.setItem("token", res.data.token);
+        setIsModalOpen(true); // Open success modal
       }
-    };
-    
-  
+    } catch (error) {
+      setError("Wrong details");
+      setIsModalOpen(true);
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <div
         className="flex min-h-screen justify-center items-center bg-cover bg-center"
         style={{
-          backgroundImage: `url(${backgroundImage})`,
+          backgroundImage: `url(${backgroundImages[currentIndex]})`,
         }}
       >
         <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg">
@@ -276,16 +277,16 @@ export default function SignIn() {
                 </div>
               </div>
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-              <button
-  onClick={() => {
-    setIsModalOpen(false);
-    window.location.replace("/home"); // Navigate to the home page
-  }}
-  type="button"
-  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
->
-  Close
-</button>
+                <button
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    window.location.replace("/home"); // Navigate to the home page
+                  }}
+                  type="button"
+                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
