@@ -21,7 +21,7 @@ const server = app.listen(PORT, () => {
 });
 
 const corsOptions = {
-    origin: 'https://af-assignment-2.vercel.app/', // Replace with your client's origin
+    origin: 'http://af-assignment-2.vercel.app/', // Replace with your client's origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   };
