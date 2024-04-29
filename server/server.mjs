@@ -12,6 +12,14 @@ let PORT = process.env.PORT || "8080";
 dotenv.config();
 
 app.use(cors());
+
+const corsOptions = {
+  origin: 'http://af-assignment-2.vercel.app/', // Replace with your client's origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -20,13 +28,7 @@ const server = app.listen(PORT, () => {
     databaseConnection();
 });
 
-const corsOptions = {
-    origin: 'http://af-assignment-2.vercel.app/', // Replace with your client's origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  };
-  
-  app.use(cors(corsOptions));
+
 
 
 // Routes
