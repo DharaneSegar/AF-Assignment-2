@@ -7,7 +7,7 @@ import logger from "./utils/logger.mjs";
 import UserRouter from "./routes/userRoute.mjs";
 
 const app = express();
-let PORT = process.env.PORT || "808";
+let PORT = process.env.PORT || "8080";
 
 dotenv.config();
 
@@ -21,13 +21,13 @@ const server = app.listen(PORT, () => {
 });
 
 const corsOptions = {
-    origin: 'https://af-assignment-2-nvh71mfep-dharanes-projects.vercel.app/', // Replace with your client's origin
+    origin: 'https://af-assignment-2.vercel.app/', // Replace with your client's origin
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   };
   
   app.use(cors(corsOptions));
-  
+
 
 // Routes
 app.use("/v1/users", UserRouter);
