@@ -65,7 +65,7 @@ export default function SignUp() {
         </video>
 
         <div className="relative z-10 flex justify-center items-center">
-        <div className="w-full max-w-md bg-white p-6 rounded-lg mt-20 shadow-lg">
+        <div className="w-full max-w-md bg-white p-6 rounded-lg mt-10 shadow-lg">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex justify-center text-black text-2xl font-semibold italic">
               <img
