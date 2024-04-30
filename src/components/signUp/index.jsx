@@ -1,29 +1,16 @@
 import axios from "axios";
-import API_KEY from "../../config/apiConfig";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import bgVideo from "../../videos/bg_video.mp4";
+
 
 export default function SignUp() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
-  const [backgroundImage, setBackgroundImage] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    // Fetch background image from NASA API
-
-    axios
-      .get(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
-      .then((response) => {
-        setBackgroundImage(response.data.hdurl);
-      })
-      .catch((error) => {
-        console.error("Error fetching background image:", error);
-      });
-  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -66,12 +53,18 @@ export default function SignUp() {
 
   return (
     <>
-      <div
-        className="flex min-h-screen justify-center items-center bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
+      <div className="relative min-h-screen">
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src={bgVideo} type="video/mp4" />
+        </video>
+
+        <div className="relative z-10 flex justify-center items-center">
         <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <div className="flex justify-center text-black text-2xl font-semibold italic">
@@ -189,8 +182,9 @@ export default function SignUp() {
               </div>
             </form>
           </div>
+          </div>
+          </div>
         </div>
-      </div>
 
             {/* Tailwind CSS Modal */}
             {isModalOpen && (
