@@ -1,39 +1,13 @@
+import React, { useState } from "react";
 import axios from "axios";
-import API_KEY from "../../config/apiConfig";
-import React from "react";
-import { useState, useEffect } from "react";
+import bgVideo from "../../videos/bg_video.mp4";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [backgroundImages, setBackgroundImages] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    // Fetch background images from NASA API
-    axios
-      .get(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=5`)
-      .then((response) => {
-        setBackgroundImages(response.data.map((item) => item.hdurl));
-      })
-      .catch((error) => {
-        console.error("Error fetching background images:", error);
-      });
-  }, []);
-
-  useEffect(() => {
-    // Change background image every 5 seconds
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === backgroundImages.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [backgroundImages]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,107 +40,107 @@ export default function SignIn() {
 
   return (
     <>
-      <div
-        className="flex min-h-screen justify-center items-center bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${backgroundImages[currentIndex]})`,
-        }}
-      >
-        <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-lg">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <div className="flex justify-center text-black text-2xl font-semibold italic">
-              <img
-                src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo@2x.png"
-                alt="NASA Logo"
-                className="h-20 w-auto"
-              />
-            </div>
-            <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in
-            </h2>
-          </div>
+      <div className="relative min-h-screen">
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src={bgVideo} type="video/mp4" />
+        </video>
 
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form className="mt-6 space-y-6" action="#" method="POST">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Email Address
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    required
-                    className="block p-5 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                  />
-                </div>
+        <div className="relative z-10 flex justify-center items-center">
+          <div className="w-full max-w-sm bg-white p-6 mt-20 rounded-lg shadow-lg">
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+              <div className="flex justify-center text-black text-2xl font-semibold italic">
+                <img
+                  src="https://www.nasa.gov/wp-content/themes/nasa/assets/images/nasa-logo@2x.png"
+                  alt="NASA Logo"
+                  className="h-20 w-auto"
+                />
               </div>
+              <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                Sign in
+              </h2>
+            </div>
 
-              <div>
-                <div className="flex items-center justify-between">
+            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+              <form className="mt-6 space-y-6" action="#" method="POST">
+                <div>
                   <label
-                    htmlFor="password"
+                    htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Password
+                    Email Address
                   </label>
-                  <div className="text-sm">
-                    <a
-                      href="/forgot"
-                      className="font-semibold text-stone-500 hover:text-black"
-                    >
-                      Forgot Password?
-                    </a>
+                  <div className="mt-2">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      className="block p-5 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                    />
                   </div>
                 </div>
-                <div className="mt-2">
-                  <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    autoComplete="current-password"
-                    required
-                    className="block w-full p-5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                  />
+
+                <div>
+                  <div className="flex items-center justify-between">
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Password
+                    </label>
+                    
+                  </div>
+                  <div className="mt-2">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      className="block w-full p-5 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="flex justify-center">
-                <button
-                  type="submit"
-                  onClick={handleSubmit}
-                  className="flex justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    onClick={handleSubmit}
+                    className="flex justify-center rounded-md bg-gray-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Sign in
+                  </button>
+                </div>
+              </form>
+
+              <p className="mt-5 text-center text-sm text-gray-500">
+                Do not have an account?
+                <span className="mr-3"></span>{" "}
+                <a
+                  href="/signup"
+                  className="font-semibold leading-6 text-gray-800 hover:text-black"
                 >
-                  Sign in
-                </button>
-              </div>
-            </form>
-
-            <p className="mt-5 text-center text-sm text-gray-500">
-              Do not have an account?
-              <span className="mr-3"></span>{" "}
-              <a
-                href="/signup"
-                className="font-semibold leading-6 text-gray-800 hover:text-black"
-              >
-                Sign Up
-              </a>
-            </p>
+                  Sign Up
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Tailwind CSS Modal */}
-      {isModalOpen && (
+           {/* Tailwind CSS Modal */}
+           {isModalOpen && (
         <div className="fixed z-10 inset-0 overflow-y-auto">
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
